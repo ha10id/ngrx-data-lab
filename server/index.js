@@ -1,16 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
-
+const cors = require('cors');
 const port = process.env.PORT || 3001;
 const publicweb = process.env.PUBLICWEB || './dist';
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(publicweb));
-app.use('/some-api', routes);
+app.use('/api', routes);
 console.log(`serving ${publicweb}`);
 
 app.get('*', (req, res) => {

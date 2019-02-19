@@ -6,7 +6,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Hero, ToastService } from '../core';
 // import { HeroesModule } from './heroes.module';
 
-const api = '/api';
+const api = 'http://localhost:3001/api';
 
 @Injectable({ providedIn: 'root' })
 export class HeroService {
@@ -23,12 +23,10 @@ export class HeroService {
   getAll() {
     const url = `${api}/heroes`;
     const msg = 'Heroes retrieved successfully!';
-    return this.http
-      .get<Hero[]>(url)
-      .pipe(
-        tap(() => this.toastService.openSnackBar(msg, 'GET')),
-        catchError(this.handleError)
-      );
+    return this.http.get<Hero[]>(url).pipe(
+      tap(() => this.toastService.openSnackBar(msg, 'GET')),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(res: HttpErrorResponse) {

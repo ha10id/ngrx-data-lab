@@ -11,12 +11,17 @@ router.get('/heroes', (req, res) => {
   ]);
 });
 
-router.get('/badguys', (req, res) => {
+router.get('/villains', (req, res) => {
   res.send([
     {
       id: 41,
       name: 'Bad Guy',
       saying: 'bwahahahaha (from node server)'
+    },
+    {
+      id: 42,
+      name: 'Over Bad Guy',
+      saying: 'bwahahaHAAAHhhaAHHHahaha (from node server)'
     }
   ]);
 });

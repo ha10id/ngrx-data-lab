@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { ToastService, Villain } from '../core';
 
-const api = '/api';
+const api = 'http://localhost:3001/api';
 
 @Injectable({ providedIn: 'root' })
 export class VillainService {
@@ -20,33 +20,26 @@ export class VillainService {
   }
 
   getVillain(id: number) {
-    return this.http
-      .get<Array<Villain>>(`${api}/villains/${id}`)
-      .pipe(
-        map(villain => villain),
-        tap(() =>
-          this.toastService.openSnackBar(
-            'Villain retrieved successfully!',
-            'GET'
-          )
-        ),
-        catchError(this.handleError)
-      );
+    return this.http.get<Array<Villain>>(`${api}/villains/${id}`).pipe(
+      map(villain => villain),
+      tap(() =>
+        this.toastService.openSnackBar('Villain retrieved successfully!', 'GET')
+      ),
+      catchError(this.handleError)
+    );
   }
 
   getAll() {
-    return this.http
-      .get<Array<Villain>>(`${api}/villains`)
-      .pipe(
-        map(villains => villains),
-        tap(() =>
-          this.toastService.openSnackBar(
-            'Villains retrieved successfully!',
-            'GET'
-          )
-        ),
-        catchError(this.handleError)
-      );
+    return this.http.get<Array<Villain>>(`${api}/villains`).pipe(
+      map(villains => villains),
+      tap(() =>
+        this.toastService.openSnackBar(
+          'Villains retrieved successfully!',
+          'GET'
+        )
+      ),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(res: HttpErrorResponse) {
